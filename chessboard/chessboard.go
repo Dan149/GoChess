@@ -3,16 +3,16 @@ package chessboard
 import "fmt"
 
 type Piece struct {
-	side     uint8    // either 0: white | 1: black
-	kind     byte     // (p)awn | (b)ishop | k(n)ight | (r)ook | (q)ueen | (k)ing
-	position [2]uint8 // x & y coordinates
-	exists   bool
+	side      uint8    // either 0: white | 1: black
+	kind      byte     // (p)awn | (b)ishop | k(n)ight | (r)ook | (q)ueen | (k)ing
+	position  [2]uint8 // x & y coordinates
+	exists    bool
 	movesGrid [8][8]bool // places where the piece can theorically go
 }
 
 func (p *Piece) PrintMovesGrid() {
 	fmt.Println("Displaying Piece @ [row col] ->", p.position, "theorically possible moves:")
-	for x:= 7; x >= 0; x--{
+	for x := 7; x >= 0; x-- {
 		for y := range p.movesGrid[x] {
 			if p.movesGrid[x][y] {
 				fmt.Print("1 ")
@@ -26,7 +26,6 @@ func (p *Piece) PrintMovesGrid() {
 
 func NewPiece(side uint8, kind byte, position [2]uint8) Piece {
 	piece := Piece{side: side, kind: kind, position: position, exists: true}
-	piece.refreshMovesGrid()
 	return piece
 }
 
@@ -96,6 +95,7 @@ func NewBoard() *Chessboard {
 					}
 				}
 				board.matrix[i][j] = NewPiece(side, kind, [2]uint8{i, j})
+				board.refreshMovesGrid([2]uint8{i, j})
 				board.turn = 1
 
 			}

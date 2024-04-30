@@ -5,7 +5,7 @@ func (c *Chessboard) movePiece(fromPosition [2]uint8, toPosition [2]uint8) {
 		p := c.matrix[fromPosition[0]][fromPosition[1]]
 		p.position = toPosition
 		c.matrix[toPosition[0]][toPosition[1]] = p
-		p.refreshMovesGrid()
+		c.refreshMovesGrid(p.position)
 		c.cleanCell(fromPosition)
 	}
 }
@@ -22,14 +22,16 @@ func (c *Chessboard) cleanCell(position [2]uint8) {
 
 // refreshing Piece.movesGrid
 
-func (p *Piece) refreshMovesGrid() {
+func (c *Chessboard) refreshMovesGrid(position [2]uint8) {
+	p := c.matrix[position[0]][position[1]]
 	switch p.kind {
 	case 'p':
-		p.movesGrid = refreshPawnMovesGrid([2]int8{int8(p.position[0]), int8(p.position[1])}, p.side)
+		p.movesGrid = refreshPawnMovesGrid([2]int8{int8(position[0]), int8(position[1])}, p.side)
 
 	case 'n':
-		p.movesGrid = refreshKnightMovesGrid([2]int8{int8(p.position[0]), int8(p.position[1])})
+		p.movesGrid = refreshKnightMovesGrid([2]int8{int8(position[0]), int8(position[1])})
 	}
+	c.matrix[position[0]][position[1]] = p
 }
 
 func refreshPawnMovesGrid(position [2]int8, side uint8) [8][8]bool {
@@ -54,6 +56,13 @@ func refreshPawnMovesGrid(position [2]int8, side uint8) [8][8]bool {
 }
 func refreshKnightMovesGrid(position [2]int8) [8][8]bool {
 	var freshGrid [8][8]bool
-
+	movements := [8][2]int8{{1, 2}, {2, 1}, {-1, -2}, {-2, -1}, {1, -2}, {-2, 1}, {-1, 2}, {2, -1}}
+	for x := range movements {
+		mov_pos0 := position[0] + movements[x][0]
+		mov_pos1 := position[1] + movements[x][1]
+		if 0 <= mov_pos0 && mov_pos0 <= 7 && 0 <= mov_pos1 && mov_pos1 <= 7 {
+			freshGrid[mov_pos0][mov_pos1] = true
+		}
+	}
 	return freshGrid
 }
