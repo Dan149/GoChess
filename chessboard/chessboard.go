@@ -1,27 +1,11 @@
 package chessboard
 
-import "fmt"
-
 type Piece struct {
 	side      uint8    // either 0: white | 1: black
 	kind      byte     // (p)awn | (b)ishop | k(n)ight | (r)ook | (q)ueen | (k)ing
 	position  [2]uint8 // x & y coordinates
 	exists    bool
 	movesGrid [8][8]bool // places where the piece can theorically go
-}
-
-func (p *Piece) PrintMovesGrid() {
-	fmt.Println("Displaying Piece @ [row col] ->", p.position, "theorically possible moves:")
-	for x := 7; x >= 0; x-- {
-		for y := range p.movesGrid[x] {
-			if p.movesGrid[x][y] {
-				fmt.Print("1 ")
-			} else {
-				fmt.Print("0 ")
-			}
-		}
-		fmt.Println()
-	}
 }
 
 func NewPiece(side uint8, kind byte, position [2]uint8) Piece {
@@ -42,20 +26,6 @@ func (c *Chessboard) IsOnCheck() bool {
 
 func (c *Chessboard) GetPiece(row uint8, col uint8) *Piece {
 	return &c.matrix[row][col]
-}
-
-func (c *Chessboard) Print() {
-	for i := 7; i >= 0; i-- {
-		for j := range c.matrix[i] {
-			if c.matrix[i][j].kind == 0 {
-				fmt.Print("  ")
-			} else {
-				fmt.Print(string(c.matrix[i][j].kind) + " ")
-			}
-		}
-		fmt.Println("")
-	}
-	fmt.Println("")
 }
 
 //

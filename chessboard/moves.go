@@ -13,6 +13,11 @@ func (c *Chessboard) movePiece(fromPosition [2]uint8, toPosition [2]uint8) {
 func (c *Chessboard) TryMovingPiece(fromPosition [2]uint8, toPosition [2]uint8) {
 	if c.canMove(fromPosition, toPosition) {
 		c.movePiece(fromPosition, toPosition)
+		if c.playingSide == 0 {
+			c.playingSide = 1
+		} else if c.playingSide == 1 {
+			c.playingSide = 0
+		}
 	}
 }
 
