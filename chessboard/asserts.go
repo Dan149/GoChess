@@ -5,6 +5,9 @@ func (c *Chessboard) pieceExists(position [2]uint8) bool {
 }
 
 func (c *Chessboard) canMove(fromPosition [2]uint8, toPosition [2]uint8) bool {
+	if fromPosition[0] == toPosition[0] && fromPosition[1] == toPosition[1] {
+		return false
+	}
 	p := c.matrix[fromPosition[0]][fromPosition[1]]
 	if p.side != c.playingSide {
 		return false

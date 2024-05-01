@@ -8,9 +8,9 @@ func (p *Piece) PrintMovesGrid() {
 		for x := 7; x >= 0; x-- {
 			for y := range p.movesGrid[x] {
 				if p.movesGrid[x][y] {
-					fmt.Print("1 ")
+					fmt.Print("▣ ")
 				} else {
-					fmt.Print("0 ")
+					fmt.Print("▧ ")
 				}
 			}
 			fmt.Println()

@@ -59,10 +59,13 @@ func main() {
 func parseMovementString(movementSlice []string) ([2]uint8, [2]uint8) {
 	fromPos := strings.Split(movementSlice[1], ";")
 	toPos := strings.Split(movementSlice[2], ";")
-	fromPos0Uint, _ := strconv.ParseUint(fromPos[0], 10, 8)
-	fromPos1Uint, _ := strconv.ParseUint(fromPos[1], 10, 8)
-	toPos0Uint, _ := strconv.ParseUint(toPos[0], 10, 8)
-	toPos1Uint, _ := strconv.ParseUint(toPos[1], 10, 8)
+	fromPos0Uint, err1 := strconv.ParseUint(fromPos[0], 10, 8)
+	fromPos1Uint, err2 := strconv.ParseUint(fromPos[1], 10, 8)
+	toPos0Uint, err3 := strconv.ParseUint(toPos[0], 10, 8)
+	toPos1Uint, err4 := strconv.ParseUint(toPos[1], 10, 8)
+	if err1 != nil || err2 != nil || err3 != nil || err4 != nil {
+		return [2]uint8{}, [2]uint8{}
+	}
 	return [2]uint8{uint8(fromPos0Uint), uint8(fromPos1Uint)}, [2]uint8{uint8(toPos0Uint), uint8(toPos1Uint)}
 
 }
