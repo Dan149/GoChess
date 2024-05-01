@@ -54,8 +54,14 @@ func refreshPawnMovesGrid(position [2]int8, side uint8) [8][8]bool {
 	switch side {
 	case 0:
 		movement = 1
+		if position[0] == 1 {
+			freshGrid[3][position[1]] = true
+		}
 	case 1:
 		movement = -1
+		if position[0] == 6 {
+			freshGrid[4][position[1]] = true
+		}
 	}
 	if position[0] < 7 {
 		freshGrid[position[0]+movement][position[1]] = true
