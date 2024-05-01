@@ -37,6 +37,8 @@ func (c *Chessboard) refreshMovesGrid(position [2]uint8) {
 		p.movesGrid = refreshKnightMovesGrid([2]int8{int8(position[0]), int8(position[1])})
 	case 'b':
 		p.movesGrid = refreshBishopMovesGrid([2]int8{int8(position[0]), int8(position[1])})
+	case 'r':
+		p.movesGrid = refreshRookMovesGrid([2]int8{int8(position[0]), int8(position[1])})
 	}
 	c.matrix[position[0]][position[1]] = p
 }
@@ -78,6 +80,21 @@ func refreshBishopMovesGrid(position [2]int8) [8][8]bool {
 	var freshGrid [8][8]bool
 	for i := int8(1); i <= 7; i++ {
 		movements := [4][2]int8{{i, i}, {-i, -i}, {-i, i}, {i, -i}}
+		for x := range movements {
+			mov_pos0 := position[0] + movements[x][0]
+			mov_pos1 := position[1] + movements[x][1]
+			if 0 <= mov_pos0 && mov_pos0 <= 7 && 0 <= mov_pos1 && mov_pos1 <= 7 {
+				freshGrid[mov_pos0][mov_pos1] = true
+			}
+		}
+	}
+	return freshGrid
+}
+
+func refreshRookMovesGrid(position [2]int8) [8][8]bool {
+	var freshGrid [8][8]bool
+	for i := int8(1); i <= 7; i++ {
+		movements := [4][2]int8{{i, 0}, {-i, 0}, {0, i}, {0, -i}}
 		for x := range movements {
 			mov_pos0 := position[0] + movements[x][0]
 			mov_pos1 := position[1] + movements[x][1]

@@ -3,16 +3,20 @@ package chessboard
 import "fmt"
 
 func (p *Piece) PrintMovesGrid() {
-	fmt.Println("Displaying Piece @ [row col] ->", p.position, "theorically possible moves:")
-	for x := 7; x >= 0; x-- {
-		for y := range p.movesGrid[x] {
-			if p.movesGrid[x][y] {
-				fmt.Print("1 ")
-			} else {
-				fmt.Print("0 ")
+	if p.exists {
+		fmt.Println("Displaying Piece @ [row col] ->", p.position, "theorically possible moves:")
+		for x := 7; x >= 0; x-- {
+			for y := range p.movesGrid[x] {
+				if p.movesGrid[x][y] {
+					fmt.Print("1 ")
+				} else {
+					fmt.Print("0 ")
+				}
 			}
+			fmt.Println()
 		}
-		fmt.Println()
+	} else {
+		fmt.Println("Piece at given location does not exist.")
 	}
 }
 

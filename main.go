@@ -25,7 +25,9 @@ func main() {
 	screen.MoveTopLeft()
 	fmt.Print("Welcome to the golang-based CLI chess game.\n\n")
 	for {
-		// board.GetPiece(3, 3).PrintMovesGrid()
+		board.GetPiece(3, 3).PrintMovesGrid()
+		fmt.Println()
+		//
 		board.PrintBoard()
 		fmt.Println()
 		board.PrintTurnNumber()
