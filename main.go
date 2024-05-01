@@ -20,11 +20,12 @@ h|?|help                 : Prints this message.
 `
 
 func main() {
-	fmt.Print("Welcome to the golang-based CLI chess game.\n\n")
 	board := chessboard.NewBoard()
 	screen.Clear()
 	screen.MoveTopLeft()
+	fmt.Print("Welcome to the golang-based CLI chess game.\n\n")
 	for {
+		// board.GetPiece(3, 3).PrintMovesGrid()
 		board.PrintBoard()
 		fmt.Println()
 		board.PrintTurnNumber()
