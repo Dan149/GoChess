@@ -29,7 +29,9 @@ func (c *Chessboard) PrintPlayingSide() {
 }
 
 func (c *Chessboard) PrintBoard() {
+	fmt.Print("  -----------------\n")
 	for i := 7; i >= 0; i-- {
+		fmt.Print(i, "| ")
 		for j := range c.matrix[i] {
 			if c.matrix[i][j].kind == 0 {
 				fmt.Print("  ")
@@ -37,7 +39,12 @@ func (c *Chessboard) PrintBoard() {
 				fmt.Print(string(c.matrix[i][j].kind) + " ")
 			}
 		}
+		fmt.Print("|")
 		fmt.Println("")
+	}
+	fmt.Print("  -----------------\n   ")
+	for i := 0; i <= 7; i++ {
+		fmt.Print(i, " ")
 	}
 	fmt.Println("")
 }

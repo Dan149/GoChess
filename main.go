@@ -12,10 +12,10 @@ import (
 const HELP string = `
 GoChess commands:
 ----------------
-move <row;col> <row;col> : Moves piece from position 1 to position 2.
+move <row>;<col> <row>;<col> : Moves piece from position 1 to position 2.
 
-q|quit|exit              : Quits the program.
-h|?|help                 : Prints this message.
+q|quit|exit                  : Quits the program.
+h|?|help                     : Prints this message.
 
 `
 
