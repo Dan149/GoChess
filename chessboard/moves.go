@@ -7,6 +7,9 @@ func (c *Chessboard) movePiece(fromPosition [2]uint8, toPosition [2]uint8) {
 		c.matrix[toPosition[0]][toPosition[1]] = p
 		c.refreshMovesGrid(p.position)
 		c.cleanCell(fromPosition)
+		if c.playingSide == 1 {
+			c.turn++
+		}
 	}
 }
 

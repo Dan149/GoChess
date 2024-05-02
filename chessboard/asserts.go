@@ -8,6 +8,9 @@ func (c *Chessboard) canMove(fromPosition [2]uint8, toPosition [2]uint8) bool {
 	if fromPosition == toPosition {
 		return false
 	}
+	if c.matrix[toPosition[0]][toPosition[1]].kind == 'k' {
+		return false
+	}
 	p := c.matrix[fromPosition[0]][fromPosition[1]]
 	if c.matrix[toPosition[0]][toPosition[1]].exists && c.matrix[toPosition[0]][toPosition[1]].side == p.side {
 		return false
@@ -21,13 +24,13 @@ func (c *Chessboard) canMove(fromPosition [2]uint8, toPosition [2]uint8) bool {
 	case 'b':
 		return canBishopMove(c, p, toPosition)
 	case 'n':
-		return canKnightMove(c, p, toPosition)
+		return canKnightMove(p, toPosition)
 	case 'r':
 		return canRookMove(c, p, toPosition)
 	case 'q':
 		return canQueenMove(c, p, toPosition)
 	case 'k':
-		return canKingMove(c, p, toPosition)
+		return canKingMove(p, toPosition)
 	default:
 		return c.matrix[toPosition[0]][toPosition[1]].exists
 	}
@@ -51,8 +54,11 @@ func canPawnMove(c *Chessboard, p Piece, to [2]uint8) bool {
 func canBishopMove(c *Chessboard, p Piece, to [2]uint8) bool {
 	return true
 }
-func canKnightMove(c *Chessboard, p Piece, to [2]uint8) bool {
-	return true
+func canKnightMove(p Piece, to [2]uint8) bool {
+	if p.movesGrid[to[0]][to[1]] {
+		return true
+	}
+	return false
 }
 func canRookMove(c *Chessboard, p Piece, to [2]uint8) bool {
 	return true
@@ -60,6 +66,9 @@ func canRookMove(c *Chessboard, p Piece, to [2]uint8) bool {
 func canQueenMove(c *Chessboard, p Piece, to [2]uint8) bool {
 	return true
 }
-func canKingMove(c *Chessboard, p Piece, to [2]uint8) bool {
-	return true
+func canKingMove(p Piece, to [2]uint8) bool {
+	if p.movesGrid[to[0]][to[1]] {
+		return true
+	}
+	return false
 }
