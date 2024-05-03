@@ -80,6 +80,37 @@ func getRowColDirections(p Piece, to [2]uint8) (int, int) {
 			}
 		}
 		return rowDirection, colDirection
+	} else if p.kind == 'q' {
+		rowDirection := int(0)
+		colDirection := int(0)
+		if p.position[0] == to[0] { // horizontal move
+			if p.position[1] < to[1] {
+				colDirection = 1
+			} else {
+				colDirection = -1
+			}
+		} else if p.position[1] == to[1] { // vertical move
+			if p.position[0] < to[0] {
+				rowDirection = 1
+			} else {
+				rowDirection = -1
+			}
+		} else {
+			rowDirection = 1
+			colDirection = 1
+			if p.position[0] > to[0] { // diagonal moves
+				rowDirection = -1
+				if p.position[1] > to[1] { // down-left
+					colDirection = -1
+				} // else remains down-right
+			} else { // up
+				if p.position[1] > to[1] { // up-left
+					colDirection = -1
+				} // else remains up-right
+			}
+
+		}
+		return rowDirection, colDirection
 	}
 	return 0, 0
 }
@@ -134,5 +165,25 @@ func canRookMove(c *Chessboard, p Piece, to [2]uint8) bool {
 	return false
 }
 func canQueenMove(c *Chessboard, p Piece, to [2]uint8) bool {
-	return true
+	rowDirection, colDirection := getRowColDirections(p, to)
+	var xRange uint8
+	var toIndex uint8
+	if rowDirection != 0 {
+		xRange = absoluteDiffUint8(p.position[0], to[0])
+		toIndex = 0
+	} else {
+		xRange = absoluteDiffUint8(p.position[1], to[1])
+		toIndex = 1
+	}
+	var x uint8
+	for x = 1; x <= xRange; x++ {
+		xPos := [2]int{int(p.position[0]) + (int(x) * rowDirection), int(p.position[1]) + (int(x) * colDirection)}
+		xCell := c.matrix[xPos[0]][xPos[1]]
+		if xCell.exists && uint8(xPos[toIndex]) != to[toIndex] {
+			return false
+		} else if uint8(xPos[toIndex]) == to[toIndex] {
+			return true
+		}
+	}
+	return false
 }
