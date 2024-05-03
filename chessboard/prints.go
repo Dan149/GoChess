@@ -52,3 +52,12 @@ func (c *Chessboard) PrintBoard() {
 	}
 	fmt.Println("")
 }
+func (c *Chessboard) PrintIsOnCheck() {
+	if c.IsOnCheck() {
+		if c.sideOnCheck == 0 {
+			fmt.Println("White's king is on check.")
+		} else {
+			fmt.Println("Black's king is on check.")
+		}
+	}
+}

@@ -14,10 +14,11 @@ func NewPiece(side uint8, kind byte, position [2]uint8) Piece {
 }
 
 type Chessboard struct {
-	matrix      [8][8]Piece
-	turn        uint
-	playingSide uint8 // same logic as for the Piece.side value
-	sideOnCheck uint8 // 2 if none
+	matrix        [8][8]Piece
+	turn          uint
+	playingSide   uint8    // same logic as for the Piece.side value
+	sideOnCheck   uint8    // 2 if none
+	checkingPiece [2]uint8 // position of the piece checking the king
 }
 
 func (c *Chessboard) IsOnCheck() bool {

@@ -32,6 +32,7 @@ func main() {
 		fmt.Print(" | ")
 		board.PrintPlayingSide()
 		fmt.Println("\nType '?' to display the help message.")
+		board.PrintIsOnCheck()
 		fmt.Println()
 		//
 		input := make([]string, 3)

@@ -122,6 +122,13 @@ func canPawnMove(c *Chessboard, p Piece, to [2]uint8) bool {
 		return true
 	}
 	if (p.position[1]+1 == to[1] || p.position[1]-1 == to[1]) && c.matrix[to[0]][to[1]].exists {
+		if c.matrix[to[0]][p.position[1]+1].side != p.side && c.matrix[to[0]][p.position[1]+1].kind == 'k' || c.matrix[to[0]][p.position[1]-1].side != p.side && c.matrix[to[0]][p.position[1]-1].kind == 'k' {
+			if p.side == 0 {
+				c.sideOnCheck = 1
+			} else {
+				c.sideOnCheck = 0
+			}
+		}
 		return true
 	}
 	return false

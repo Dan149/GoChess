@@ -48,9 +48,7 @@ func (c *Chessboard) refreshMovesGrid(position [2]uint8) {
 	case 'k':
 		p.movesGrid = refreshKingMovesGrid([2]int8{int8(position[0]), int8(position[1])})
 	}
-	c.matrix[position[0]][position[1]] = p
 }
-
 func refreshPawnMovesGrid(position [2]int8, side uint8) [8][8]bool {
 	var freshGrid [8][8]bool
 	var movement int8
